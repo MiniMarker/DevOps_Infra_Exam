@@ -15,3 +15,6 @@ outputs:
 
 run:
   path: monitoring-infra/concourse/java/task.sh
+
+caches:
+  - path: .m2/

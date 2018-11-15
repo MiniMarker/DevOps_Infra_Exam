@@ -8,6 +8,7 @@ export CHECK="√"
 export M2_LOCAL_REPO=".m2"
 
 # START Caching
+export ROOT_FOLDER=$( pwd )
 M2_HOME=${HOME}/.m2
 mkdir -p ${M2_HOME}
 
