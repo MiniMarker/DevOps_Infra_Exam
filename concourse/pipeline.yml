@@ -11,14 +11,10 @@ jobs:
   - task: mvn_build
     file: monitoring-infra/concourse/java/task.yml
     input_mapping: {source: monitoring-app}
-
-  - task: push_to_heroku
-    file: monitoring-infra/concourse/heroku/push_dockerfile_to_heroku.yml
-    #input_mapping: {source: monitoring-app}
     params:
+      app_name: ((heroku_app_name))
       heroku_email: ((heroku_email))
       heroku_api_token: ((heroku_api_key))
-      app_name: ((heroku_app_name))
 
   - put: docker-image-app
     params:
@@ -33,6 +29,14 @@ jobs:
     - get: docker-image-app
       trigger: true
       passed: [build]
+
+  - task: push_to_heroku
+    file: monitoring-infra/concourse/heroku/push_dockerfile_to_heroku.yml
+    #input_mapping: {source: monitoring-app}
+    params:
+      heroku_email: ((heroku_email))
+      heroku_api_token: ((heroku_api_key))
+      app_name: ((heroku_app_name))
 
 # Infra task
 - name: infra
