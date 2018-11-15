@@ -7,13 +7,14 @@ image_resource:
     tag: "0.11.8"
 
 inputs:
-- name: source
+  - name: source
 
 outputs:
-- name: with-state
+  - name: with-state
 
 caches:
-- path: terraform-cache
+  - path: terraform-cache
+  - path: .m2/
 
 params:
   command:
