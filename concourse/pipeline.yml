@@ -1,0 +1,77 @@
+jobs:
+
+# Build Docker-image task
+- name: build
+  plan:
+  - aggregate:
+    - get: monitoring-infra
+    - get: monitoring-app
+  - task: build
+    file: monitoring-infra/concourse/docker/build_docker.yml
+    input_mapping: {source: monitoring-app}
+    params:
+      heroku_email: ((heroku_email))
+      heroku_api_token: ((heroku_api_key))
+      app_name: ((heroku_app_name))
+  - put: docker-image-app
+    params:
+      build: jar-file
+
+# Deploy docker image task
+- name: deploy-ci
+  plan:
+  - aggregate:
+    - get: monitoring-infra
+    - get: docker-image-app
+      trigger: true
+      passed: [build]
+
+# Infra task
+- name: infra
+  plan:
+  - aggregate:
+    - get: monitoring-infra
+  - task: apply
+    file: monitoring-infra/concourse/terraform/task.yml
+    input_mapping: {source: monitoring-infra}
+    params:
+      github_token: ((github_token))
+      heroku_api_key: ((heroku_api_key))
+      statuscake_api_key: ((statuscake_api_key))
+      command: apply
+      directories: |
+          terraform
+  - put: monitoring-infra
+    params:
+      repository: with-state
+      rebase: true
+
+
+
+
+
+resources:
+
+# Heroku registry App Docker-image
+- name: docker-image-app
+  type: docker-image
+  source:
+    repository: registry.heroku.com/((heroku_app_name))/web
+    username: ((heroku_email))
+    password: ((heroku_api_key))
+
+# App GitHub repo
+- name: monitoring-app
+  type: git
+  source:
+    uri: git@github.com:examuser/DevOps_Exam_App.git
+    branch: master
+    private_key: ((deploy_key_app))
+
+# Infra GitHub repo
+- name: monitoring-infra
+  type: git
+  source:
+      uri: git@github.com:examuser/DevOps_Exam_Infra.git
+      branch: master
+      private_key: ((deploy_key_infra))
