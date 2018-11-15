@@ -1,3 +1,6 @@
+
+#   CI
+
 # Create Heroku apps for staging and production
 resource "heroku_app" "ci" {
   name   = "${var.app_prefix}-app-ci"
@@ -10,6 +13,16 @@ resource "heroku_addon" "db_ci" {
   plan = "heroku-postgresql:hobby-dev"
 }
 
+# Create a hosted graphite, and configure the app to use it
+resource "heroku_addon" "hostedgraphite" {
+  app  = "${heroku_app.ci.name}"
+  plan = "hostedgraphite"
+}
+
+
+
+#   STAGING
+
 resource "heroku_app" "staging" {
   name   = "${var.app_prefix}-app-staging"
   region = "eu"
@@ -20,6 +33,10 @@ resource "heroku_addon" "db_stage" {
   app  = "${heroku_app.staging.name}"
   plan = "heroku-postgresql:hobby-dev"
 }
+
+
+
+#   PRODUCTION
 
 resource "heroku_app" "production" {
   name   = "${var.app_prefix}-app-production"
@@ -32,18 +49,24 @@ resource "heroku_addon" "db_prod" {
   plan = "heroku-postgresql:hobby-dev"
 }
 
+
+
+#   PIPELINE
+
 resource "heroku_pipeline" "test-app" {
   name = "${var.pipeline_name}"
 }
 
-# Couple apps to different pipeline stages
+
+
+#   Couple apps to different pipeline stages
+
 resource "heroku_pipeline_coupling" "ci" {
   app      = "${heroku_app.ci.name}"
   pipeline = "${heroku_pipeline.test-app.id}"
   stage    = "development"
 }
 
-# Couple apps to different pipeline stages
 resource "heroku_pipeline_coupling" "staging" {
   app      = "${heroku_app.staging.name}"
   pipeline = "${heroku_pipeline.test-app.id}"
