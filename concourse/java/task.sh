@@ -29,5 +29,9 @@ EOF
 # END Caching
 
 
-mvn -f source/pom.xml install 
+mvn -f source/pom.xml install
+
+mv ./source/target/herokupipe-example-0.0.1-SNAPSHOT.jar ./jar-file/app.jar
+mv ./source/Dockerfile ./jar-file/Dockerfile
+
 echo -e "${GREEN}${CHECK} Maven install${NC}"
