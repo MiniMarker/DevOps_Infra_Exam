@@ -14,7 +14,7 @@ jobs:
 
   - task: push_to_heroku
     file: monitoring-infra/concourse/heroku/push_dockerfile_to_heroku.yml
-    input_mapping: {source: monitoring-app}
+    #input_mapping: {source: monitoring-app}
     params:
       heroku_email: ((heroku_email))
       heroku_api_token: ((heroku_api_key))
