@@ -8,22 +8,23 @@ export CHECK="√"
 export M2_LOCAL_REPO=".m2"
 
 # START Caching
-export ROOT_FOLDER=$( pwd )
-export REPO=repo
+M2_HOME=${HOME}/.m2
+mkdir -p ${M2_HOME}
 
-M2_HOME="${HOME}/.m2"
-M2_CACHE="${ROOT_FOLDER}/maven"
+M2_LOCAL_REPO="${ROOT_FOLDER}/.m2"
 
-echo "Generating symbolic links for caches"
+mkdir -p "${M2_LOCAL_REPO}/repository"
 
-[[ -d "${M2_CACHE}" && ! -d "${M2_HOME}" ]] && ln -s "${M2_CACHE}" "${M2_HOME}"
+cat > ${M2_HOME}/settings.xml <<EOF
 
-SCRIPTS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                          https://maven.apache.org/xsd/settings-1.0.0.xsd">
+      <localRepository>${M2_LOCAL_REPO}/repository</localRepository>
+</settings>
 
-#. ${SCRIPTS_DIR}/generate-settings.sh
-
-[[ -f "${SCRIPTS_DIR}/functions.sh" ]] && source "${SCRIPTS_DIR}/functions.sh" || \
-echo "No functions.sh found"
+EOF
 # END Caching
 
 
