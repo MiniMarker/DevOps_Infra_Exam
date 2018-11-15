@@ -16,7 +16,7 @@ params:
 
 run:
   path: sh
-  dir: source
+  dir: .
   args:
     - -exc
     - |

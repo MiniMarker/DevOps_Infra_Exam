@@ -6,7 +6,9 @@ jobs:
   - aggregate:
     - get: monitoring-app
       trigger: true
+
     - get: monitoring-infra
+
     - put: docker-image-app
       params:
         build: jar-file
