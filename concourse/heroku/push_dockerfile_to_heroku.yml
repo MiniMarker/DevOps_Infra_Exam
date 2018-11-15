@@ -29,5 +29,5 @@ run:
           password ${heroku_api_token}
       EOF
       export HEROKU_API_KEY=${heroku_api_token}
-      heroku container:push web
+      heroku container:push web -a source
       heroku container:release web -a ${app_name}
