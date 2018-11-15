@@ -7,6 +7,9 @@ jobs:
     - get: monitoring-app
       trigger: true
     - get: monitoring-infra
+    - put: docker-image-app
+      params:
+        build: jar-file
 
   - task: mvn_build
     file: monitoring-infra/concourse/java/task.yml
@@ -19,9 +22,6 @@ jobs:
       heroku_email: ((heroku_email))
       heroku_api_token: ((heroku_api_key))
       app_name: ((heroku_app_name))
-  - put: docker-image-app
-    params:
-      build: jar-file
 
 
 # Deploy docker image task
