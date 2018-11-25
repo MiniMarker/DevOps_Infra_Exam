@@ -17,7 +17,7 @@ resource "heroku_addon" "db_ci" {
 }
 
 # Create a hosted graphite, and configure the app to use it
-resource "heroku_addon" "hostedgraphite" {
+resource "heroku_addon" "hostedgraphite_ci" {
   app  = "${heroku_app.ci.name}"
   plan = "hostedgraphite"
 }
@@ -36,7 +36,7 @@ resource "heroku_addon" "db_stage" {
   app  = "${heroku_app.staging.name}"
   plan = "heroku-postgresql:hobby-dev"
 }
-resource "heroku_addon" "hostedgraphite" {
+resource "heroku_addon" "hostedgraphite_stage" {
   app  = "${heroku_app.staging.name}"
   plan = "hostedgraphite"
 }
@@ -54,7 +54,7 @@ resource "heroku_addon" "db_prod" {
   app  = "${heroku_app.production.name}"
   plan = "heroku-postgresql:hobby-dev"
 }
-resource "heroku_addon" "hostedgraphite" {
+resource "heroku_addon" "hostedgraphite_prod" {
   app  = "${heroku_app.production.name}"
   plan = "hostedgraphite"
 }
