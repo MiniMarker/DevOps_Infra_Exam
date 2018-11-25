@@ -6,3 +6,6 @@ variable "app_prefix" {
 variable "pipeline_name" {
   default = "devops-pipeline"
 }
+
+variable "hosted_graphite_apikey" {}
+variable "hosted_graphite_host" {}
