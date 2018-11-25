@@ -5,6 +5,9 @@
 resource "heroku_app" "ci" {
   name   = "${var.app_prefix}-app-ci"
   region = "eu"
+  config_vars = {
+    JAVA_TOOL_OPTIONS = "-Xmx300m"
+  }
 }
 
 # Create a database, and configure the app to use it
@@ -33,7 +36,10 @@ resource "heroku_addon" "db_stage" {
   app  = "${heroku_app.staging.name}"
   plan = "heroku-postgresql:hobby-dev"
 }
-
+resource "heroku_addon" "hostedgraphite" {
+  app  = "${heroku_app.staging.name}"
+  plan = "hostedgraphite"
+}
 
 
 #   PRODUCTION
@@ -48,7 +54,10 @@ resource "heroku_addon" "db_prod" {
   app  = "${heroku_app.production.name}"
   plan = "heroku-postgresql:hobby-dev"
 }
-
+resource "heroku_addon" "hostedgraphite" {
+  app  = "${heroku_app.production.name}"
+  plan = "hostedgraphite"
+}
 
 
 #   PIPELINE
