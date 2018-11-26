@@ -22,8 +22,6 @@ setup() {
     export GITHUB_TOKEN="${github_token}"
     export HEROKU_API_KEY="${heroku_api_key}"
     export STATUSCAKE_APIKEY="${statuscake_api_key}"
-    export GRAPHITE_APIKEY="${hosted_graphite_apikey}"
-    export GRAPHITE_HOST="${hosted_graphite_host}"
 }
 
 setup_cache() {
