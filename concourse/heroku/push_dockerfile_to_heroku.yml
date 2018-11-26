@@ -10,8 +10,8 @@ params:
   heroku_email:
   heroku_api_token:
   app_name:
-  hosted_graphite_apikey:
-  hosted_graphite_host:
+  graphite_apikey:
+  graphite_host:
 
 run:
   path: sh
