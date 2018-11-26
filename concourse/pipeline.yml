@@ -31,8 +31,8 @@ jobs:
       heroku_email: ((heroku_email))
       heroku_api_token: ((heroku_api_key))
       app_name: ((heroku_app_name))
-      hosted_graphite_apikey: ((hosted_graphite_apikey))
-      hosted_graphite_host: ((hosted_graphite_host))
+      graphite_apikey: ((hosted_graphite_apikey))
+      graphite_host: ((hosted_graphite_host))
 
 # Infra task
 - name: infra
