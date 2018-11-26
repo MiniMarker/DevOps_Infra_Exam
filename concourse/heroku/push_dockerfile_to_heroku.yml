@@ -29,6 +29,3 @@ run:
       EOF
       export HEROKU_API_KEY=${heroku_api_token}
       heroku container:release web -a ${app_name}
-
-      heroku config:set -a devops-exam-app-ci GRAPHITE_APIKEY=${graphite_apikey}
-      heroku config:set -a devops-exam-app-ci GRAPHITE_HOST=${graphite_host}
