@@ -28,6 +28,6 @@ run:
           password ${heroku_api_token}
       EOF
       export HEROKU_API_KEY=${heroku_api_token}
-      heroku container:release web -a ${app_name}
       heroku config:set -a ${app_name} GRAPHITE_HOST=${hosted_graphite_host}
       heroku config:set -a ${app_name} GRAPHITE_APIKEY=${hosted_graphite_apikey}
+      heroku container:release web -a ${app_name}

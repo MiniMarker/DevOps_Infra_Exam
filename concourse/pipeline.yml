@@ -16,7 +16,6 @@ jobs:
     params:
       build: jar-file
 
-
 # Deploy docker image task
 - name: deploy-ci
   plan:
