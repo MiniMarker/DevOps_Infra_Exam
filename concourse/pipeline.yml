@@ -25,6 +25,15 @@ jobs:
       trigger: true
       passed: [build]
 
+  - task: enviorment_vars
+    file: monitoring-infra/concourse/heroku/envorment_vars.yml
+    params:
+      heroku_email: ((heroku_email))
+      heroku_api_token: ((heroku_api_key))
+      app_name: ((heroku_app_name))
+      graphite_apikey: ((hosted_graphite_apikey))
+      graphite_host: ((hosted_graphite_host))
+
   - task: push_to_heroku
     file: monitoring-infra/concourse/heroku/push_dockerfile_to_heroku.yml
     params:
@@ -46,6 +55,8 @@ jobs:
       github_token: ((github_token))
       heroku_api_key: ((heroku_api_key))
       statuscake_api_key: ((statuscake_api_key))
+      graphite_apikey: ((hosted_graphite_apikey))
+      graphite_host: ((hosted_graphite_host))
       command: apply
       directories: |
           terraform

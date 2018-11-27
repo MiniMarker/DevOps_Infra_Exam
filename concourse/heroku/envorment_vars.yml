@@ -3,20 +3,19 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: psharkey/heroku-cli
+    repository: wingrunr21/alpine-heroku-cli
     tag: "latest"
 
-inputs:
-- name: source
-
 params:
-    heroku_email:
-    heroku_api_token:
-    app_name:
+  heroku_email:
+  heroku_api_token:
+  app_name:
+  graphite_apikey:
+  graphite_host:
 
 run:
   path: sh
-  dir: source
+  dir: .
   args:
     - -exc
     - |
@@ -28,4 +27,6 @@ run:
           login ${heroku_email}
           password ${heroku_api_token}
       EOF
-      git push https://git.heroku.com/${app_name}.git master:refs/heads/master
+      export HEROKU_API_KEY=${heroku_api_token}
+      heroku config:set -a ${app_name} GRAPHITE_APIKEY=${graphite_apikey}
+      heroku config:set -a ${app_name} GRAPHITE_HOST=${graphite_host}
