@@ -10,8 +10,12 @@ params:
   heroku_email:
   heroku_api_token:
   app_name:
-  graphite_apikey:
-  graphite_host:
+  graphite_apikey_ci:
+  graphite_host_ci:
+  graphite_apikey_stage:
+  graphite_host_stage:
+  graphite_apikey_prod:
+  graphite_host_prod:
 
 run:
   path: sh
@@ -28,5 +32,11 @@ run:
           password ${heroku_api_token}
       EOF
       export HEROKU_API_KEY=${heroku_api_token}
-      heroku config:set -a ${app_name} GRAPHITE_APIKEY=${graphite_apikey}
-      heroku config:set -a ${app_name} GRAPHITE_HOST=${graphite_host}
+      heroku config:set -a devops-exam-app-ci GRAPHITE_APIKEY=${graphite_apikey_ci}
+      heroku config:set -a devops-exam-app-ci GRAPHITE_HOST=${graphite_host_ci}
+
+      heroku config:set -a devops-exam-app-staging GRAPHITE_APIKEY=${graphite_apikey_stage}
+      heroku config:set -a devops-exam-app-staging GRAPHITE_HOST=${graphite_host_stage}
+
+      heroku config:set -a devops-exam-app-production GRAPHITE_APIKEY=${graphite_apikey_prod}
+      heroku config:set -a devops-exam-app-production GRAPHITE_HOST=${graphite_host_prod}

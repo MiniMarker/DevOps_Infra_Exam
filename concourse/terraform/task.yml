@@ -23,8 +23,13 @@ params:
   lock_timeout: 5m
   github_token: ((github_token))
   statuscake_api_key: ((statuscake_api_key))
-  graphite_apikey: ((hosted_graphite_apikey))
-  graphite_host: ((hosted_graphite_host))
+  graphite_apikey_ci: ((hosted_graphite_apikey_ci))
+  graphite_host_ci: ((hosted_graphite_host_ci))
+  graphite_apikey_stage: ((hosted_graphite_apikey_stage))
+  graphite_host_stage: ((hosted_graphite_host_stage))
+  graphite_apikey_prod: ((hosted_graphite_apikey_prod))
+  graphite_host_prod: ((hosted_graphite_host_prod))
+
 
 run:
   path: ./source/concourse/terraform/terraform.sh
