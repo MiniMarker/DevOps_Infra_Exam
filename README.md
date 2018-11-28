@@ -14,12 +14,12 @@ The application is pretty simple, it is a minimum viable product API build with 
 [Repository for Infrastructure](https://github.com/examuser/DevOps_Exam_Infra) (https://github.com/examuser/DevOps_Exam_Infra) <br/>
 
 ## Tasks done
-1. Basic setup (10p)
-2. Caching of Maven repositories (10p)
+1. Caching of Maven repositories
+2. Basic setup (10p)
 3. Docker (20p)
 4. Metrics (20p)
 
-Total = 60p
+Total = 50p
 
 ## How to run the project
 1. Clone/fork repos
