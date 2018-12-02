@@ -38,8 +38,10 @@ Total = 50p
 8. In `localhost:8080` **run the infra and build once.**
 	- As the exam task states there is a "chicken and the egg"-issue when declaring and implementing Hosted Graphite. This results in that the host and api keys aren't known until the **infra** task in concourse has ran and build the Heroku pipeline once.
 9. Now go into the Hosted Graphite plugin in every app in pipeline created at Heroku, get Host og ApiKey from these pages and put these values into every `hosted_graphite_apikey_xxxxxxx` in `/credentials.yml`
-10. Run the run the infra and build manually from `localhost:8080`
-11. Now you should be able to go to `https://devops-exam-app-ci.herokuapp.com/` and access the Application.
+10. Now you need to build the pipeline by using the following command in the terminal.
+	- `fly -t <target> sp -p <pipeline_name> -c concourse/pipeline.yml -l credentials.yml`
+11. Run the run the infra and build manually from `localhost:8080`
+12. Now you should be able to go to `https://devops-exam-app-ci.herokuapp.com/` and access the Application.
 
 **NB:** If you change the name of the `app_prfix` variable in point **3** `/terraform/variables.tf` you also have to update the appnames in all the `heroku config:set` scripts at the bottom of the file located at `/concourse/envorment_vars.yml` to follow this format `-a <app_prefix>-app-ci`. The Application-url will also change accordingly to the naming.
 

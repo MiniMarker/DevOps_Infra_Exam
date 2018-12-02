@@ -1,5 +1,5 @@
 provider "statuscake" {
-  username = "cmarker"
+  username = "" #FIXME
 }
 
 resource "statuscake_test" "production" {
